@@ -5,31 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "tbl_users")
-public class User {
+@Table(name = "tbl_expenses")
+public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String avatar;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String confirmPassword;
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
-
-
+    @ManyToOne
+    private Employee employee;
+    @OneToOne
+    private Company company;
+    private BigDecimal amount;
+    private Long expenseDate;
+    private boolean isApproved;
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;

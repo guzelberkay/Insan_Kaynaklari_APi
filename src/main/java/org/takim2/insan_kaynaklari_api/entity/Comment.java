@@ -5,30 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
-
-import java.util.List;
+import org.takim2.insan_kaynaklari_api.entity.enums.CommentStatus;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "tbl_users")
-public class User {
+@Table(name = "tbl_comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String avatar;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String confirmPassword;
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
-
+    @OneToOne
+    private CompanyManager companyManager;
+    @OneToOne
+    private Company company;
+    private String content;
+    private CommentStatus commentStatus;
 
     @Builder.Default
     private Long createAt=System.currentTimeMillis();

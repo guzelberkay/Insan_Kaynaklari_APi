@@ -5,31 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
-
-import java.util.List;
+import org.takim2.insan_kaynaklari_api.entity.enums.LeaveStatus;
+import org.takim2.insan_kaynaklari_api.entity.enums.LeaveType;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "tbl_users")
-public class User {
+@Table(name = "tbl_leaves")
+public class Leave {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String avatar;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String confirmPassword;
+    @ManyToOne
+    private Employee employee;
+    private String description;
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
-
-
+    private LeaveType leaveType;
+    private Long startDate;
+    private Long endDate;
+    @Enumerated(EnumType.STRING)
+    private LeaveStatus leaveStatus;
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;
