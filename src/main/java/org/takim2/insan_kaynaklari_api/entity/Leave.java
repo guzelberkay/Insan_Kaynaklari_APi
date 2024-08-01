@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.entity.enums.LeaveStatus;
-import org.takim2.insan_kaynaklari_api.entity.enums.LeaveType;
+import org.takim2.insan_kaynaklari_api.enums.LeaveStatus;
+import org.takim2.insan_kaynaklari_api.enums.LeaveType;
 
 @NoArgsConstructor
 @AllArgsConstructor

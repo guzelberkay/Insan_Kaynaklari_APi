@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
-import org.takim2.insan_kaynaklari_api.entity.enums.UserStatus;
-
-import java.util.List;
+import org.takim2.insan_kaynaklari_api.enums.UserRole;
+import org.takim2.insan_kaynaklari_api.enums.UserStatus;
 
 @NoArgsConstructor
 @AllArgsConstructor
