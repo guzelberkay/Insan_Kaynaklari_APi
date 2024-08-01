@@ -18,6 +18,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private Integer numberOfEmployees;
     @ManyToOne
     private CompanyManager companyManager;
     @Enumerated(EnumType.STRING)

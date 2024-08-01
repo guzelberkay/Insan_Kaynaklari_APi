@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
+import org.takim2.insan_kaynaklari_api.entity.enums.UserStatus;
 
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String activationCode;
+    private String rePasswordCode;
     private String password;
-    private String confirmPassword;
+    private UserStatus userStatus;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
