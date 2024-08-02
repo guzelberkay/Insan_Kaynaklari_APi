@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.entity.CompanyManager;
 import org.takim2.insan_kaynaklari_api.entity.enums.SubscriptionPlan;
 
 @NoArgsConstructor

@@ -36,8 +36,6 @@ public class User {
     private UserRole userRole = UserRole.COMPANY_MANAGER;
 
 
-
-
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;
