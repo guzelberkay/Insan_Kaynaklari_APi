@@ -28,9 +28,12 @@ public class User {
     private String activationCode;
     private String rePasswordCode;
     private String password;
-    private UserStatus userStatus;
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private UserStatus userStatus = UserStatus.PENDING;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole = UserRole.COMPANY_MANAGER;
 
 
 

@@ -4,32 +4,33 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import org.takim2.insan_kaynaklari_api.Vw.UserView;
+import org.takim2.insan_kaynaklari_api.dto.request.UserLoginRequestDto;
+import org.takim2.insan_kaynaklari_api.dto.response.ResponseDTO;
 import org.takim2.insan_kaynaklari_api.entity.User;
 import org.takim2.insan_kaynaklari_api.entity.enums.UserStatus;
 import org.takim2.insan_kaynaklari_api.exception.ErrorType;
 import org.takim2.insan_kaynaklari_api.exception.HumanResourcesAppException;
 import org.takim2.insan_kaynaklari_api.repository.UserRepository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 import org.takim2.insan_kaynaklari_api.dto.request.RegisterRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.response.RegisterResponseDto;
-import org.takim2.insan_kaynaklari_api.entity.User;
-import org.takim2.insan_kaynaklari_api.exception.ErrorType;
-import org.takim2.insan_kaynaklari_api.exception.UserServiceException;
 import org.takim2.insan_kaynaklari_api.mapper.UserMapper;
-import org.takim2.insan_kaynaklari_api.repository.UserRepository;
+import org.takim2.insan_kaynaklari_api.util.CodeGenerator;
+import org.takim2.insan_kaynaklari_api.util.JwtTokenManager;
 
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    private final JwtTokenManager jwtTokenManager;
+    private final CodeGenerator codeGenerator;
 
 
     public Map<Long,UserView> getUsersByIds(List<Long> companyManagersUserIds) {
@@ -51,12 +52,12 @@ public class UserService {
     public RegisterResponseDto register(RegisterRequestDto dto) {
         // Password ve repassword eşitliği kontrol edilir:
         if (!dto.getPassword().equals(dto.getRePassword())) {
-            throw new UserServiceException(ErrorType.PASSWORDS_NOT_MATCHED);
+            throw new HumanResourcesAppException(ErrorType.PASSWORD_MISMATCH);
         }
 
         // E-mail daha önce alınmış mı kontrol edilir:
         if (userRepository.existsByEmail(dto.getEmail())) {
-            throw new UserServiceException(ErrorType.EMAIL_ALREADY_TAKEN);
+            throw new HumanResourcesAppException(ErrorType.EMAIL_EXIST);
         }
         // Kullanıcıyı kaydet
         User user = UserMapper.INSTANCE.registerRequestDtoToUser(dto);
@@ -66,4 +67,63 @@ public class UserService {
         return response;
     }
 
+
+
+    public ResponseDTO<String> Login(UserLoginRequestDto dto){
+        Optional<User> optionalByUser = userRepository.findOptionalByEmailAndPassword(dto.getEmail(), dto.getPassword());
+
+        if(optionalByUser.isEmpty()){
+            throw new HumanResourcesAppException(ErrorType.PASSWORD_MISMATCH);
+        }
+
+        if(!optionalByUser.get().getUserStatus().equals(UserStatus.ACTIVE)){
+            throw new HumanResourcesAppException(ErrorType.USER_STATUS_NOT_ACTIVE);
+        }
+
+        String token = jwtTokenManager.createToken( optionalByUser.get().getId(), optionalByUser.get().getUserRole() );
+        return ResponseDTO.<String>builder()
+                .code(400)
+                .message("Giriş Başarılı")
+                .data(token)
+                .build();
+    }
+
+    //Şifre Yenileme mail gönderme eklenince düzenlenicek
+    public ResponseDTO<Boolean> forgotPassword(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND);
+        }
+        userOptional.get().setRePasswordCode(codeGenerator.codeGenerator());
+
+        userRepository.save(userOptional.get());
+
+        // Şifre yenileme maili gönderilecek
+        //12321321
+        //123131
+
+        return ResponseDTO.<Boolean>builder()
+                .code(400)
+                .message("emaile şifre gönderildi. Mailinizi kontrol ediniz.")
+                .data(true)
+                .build();
+    }
+
+    public ResponseDTO<Boolean> resetPasswordCodeControl(String code){
+        Optional<User> userOptional = userRepository.findByRePasswordCode(code);
+        if (userOptional.isEmpty()) {
+            throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND);
+        }
+
+        // şifreyi mail gönder
+
+        userOptional.get().setRePasswordCode(null);
+        userRepository.save(userOptional.get());
+
+        return ResponseDTO.<Boolean>builder()
+                .code(400)
+                .message("Şifre yenileme işlemi başarılı. Şifreniz mailinize gönderildi.")
+                .data(true)
+                .build();
+    }
 }

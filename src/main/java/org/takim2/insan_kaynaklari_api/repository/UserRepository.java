@@ -8,6 +8,7 @@ import org.takim2.insan_kaynaklari_api.Vw.UserView;
 import org.takim2.insan_kaynaklari_api.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -17,6 +18,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
   
   
     Boolean existsByEmail(String email);
+    Optional<User> findOptionalByEmailAndPassword (String username, String password);
+
+
+
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findByRePasswordCode(String code);
 
 }
 

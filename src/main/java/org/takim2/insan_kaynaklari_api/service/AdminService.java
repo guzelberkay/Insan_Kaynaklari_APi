@@ -8,7 +8,7 @@ import org.takim2.insan_kaynaklari_api.Vw.PassiveCompaniesView;
 import org.takim2.insan_kaynaklari_api.Vw.UserView;
 import org.takim2.insan_kaynaklari_api.dto.request.SendActivationRequestDTO;
 import org.takim2.insan_kaynaklari_api.dto.response.PendingCompaniesResponseDTO;
-import org.takim2.insan_kaynaklari_api.enums.UserStatus;
+import org.takim2.insan_kaynaklari_api.entity.enums.UserStatus;
 import org.takim2.insan_kaynaklari_api.exception.ErrorType;
 import org.takim2.insan_kaynaklari_api.exception.HumanResourcesAppException;
 import org.takim2.insan_kaynaklari_api.util.CodeGenerator;
