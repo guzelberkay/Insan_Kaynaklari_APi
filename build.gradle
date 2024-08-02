@@ -35,11 +35,13 @@ dependencies {
 
     implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 
+
     // MapStruct bağımlılığı
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 
     // MapStruct processor bağımlılığı
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

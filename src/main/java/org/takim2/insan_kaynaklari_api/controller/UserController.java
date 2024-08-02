@@ -1,5 +1,6 @@
 package org.takim2.insan_kaynaklari_api.controller;
 
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,10 @@ import org.takim2.insan_kaynaklari_api.service.UserService;
 public class UserController {
     private final UserService userService;
 
+
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto dto){
         return ResponseEntity.ok(userService.register(dto)  );
     }
+
 }

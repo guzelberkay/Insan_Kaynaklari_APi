@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.takim2.insan_kaynaklari_api.entity.enums.SubscriptionPlan;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +19,9 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    private String companyName;
+
     private Integer numberOfEmployees;
     @ManyToOne
     private CompanyManager companyManager;
