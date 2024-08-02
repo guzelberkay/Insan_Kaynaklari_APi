@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.enums.UserRole;
-import org.takim2.insan_kaynaklari_api.enums.UserStatus;
+
+import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
+import org.takim2.insan_kaynaklari_api.entity.enums.UserStatus;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +23,7 @@ public class User {
     private String avatar;
     private String firstName;
     private String lastName;
+
     private String email;
     private String activationCode;
     private String rePasswordCode;
@@ -28,6 +31,7 @@ public class User {
     private UserStatus userStatus;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
 
 
 

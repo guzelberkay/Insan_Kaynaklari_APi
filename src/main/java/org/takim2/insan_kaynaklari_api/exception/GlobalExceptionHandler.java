@@ -1,4 +1,5 @@
 package org.takim2.insan_kaynaklari_api.exception;
+
 //Tüm Controller sınıfları için merkezi bir şekidle hata yönetimni sağlayacaktır.
 
 

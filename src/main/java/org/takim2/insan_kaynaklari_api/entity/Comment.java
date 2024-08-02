@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.takim2.insan_kaynaklari_api.enums.CommentStatus;
+
+import org.takim2.insan_kaynaklari_api.entity.enums.CommentStatus;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
