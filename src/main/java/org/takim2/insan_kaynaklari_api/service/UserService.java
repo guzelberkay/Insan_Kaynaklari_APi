@@ -39,6 +39,9 @@ public class UserService {
     private final CodeGenerator codeGenerator;
     private final CompanyManagerRepository companyManagerRepository;
 
+    public void saveAdmin(User user) {
+        userRepository.save(user);
+    }
 
     public Map<Long,UserView> getUsersByIds(List<Long> companyManagersUserIds) {
         List<UserView> userViewList = userRepository.findAllByIds(companyManagersUserIds);
@@ -146,5 +149,8 @@ public class UserService {
                 .message("Şifre yenileme işlemi başarılı. Şifreniz mailinize gönderildi.")
                 .data(true)
                 .build();
+    }
+    public Optional<User> getUserById(Long userId) {
+        return userRepository.findById(userId);
     }
 }
