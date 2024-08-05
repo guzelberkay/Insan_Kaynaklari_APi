@@ -17,6 +17,7 @@ import org.takim2.insan_kaynaklari_api.util.JwtTokenManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,8 +33,7 @@ public class AdminService {
 
 
     public List<PendingCompaniesResponseDTO> getPendingUsers(String token) {
-        //TODO token kontrolü
-        //TODO user'ın Role Kontrolü
+        adminCheck(token);
 
         List<PassiveCompaniesView> pendingCompanies = companyService.getPendingCompanies(false); //Pasif şirket listesi
         List<Long> companyManagersUserIds = pendingCompanies.stream().map(PassiveCompaniesView::getCompanyManagersUserId).distinct().collect(Collectors.toList()); //pasif şirketlerin manager'larının user id'leri,
@@ -59,6 +59,13 @@ public class AdminService {
         });
 
         return pendingCompaniesResponseDTOList;
+    }
+
+    private void adminCheck(String token) {
+        String userRole = jwtTokenManager.getRoleFromToken(token).orElseThrow(() -> new HumanResourcesAppException(ErrorType.INVALID_TOKEN));
+        if(!Objects.equals(userRole, "ADMIN")){
+            throw new HumanResourcesAppException(ErrorType.UNAUTHORIZED_REQUEST);
+        }
     }
 
 

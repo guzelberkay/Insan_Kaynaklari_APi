@@ -114,7 +114,7 @@ public class JwtTokenManager {
         String token = "";
         try {
             token = JWT.create().withAudience()
-                    .withClaim("id",
+                    .withClaim("userId",
                             id)
                     .withClaim("role",
                             role.name())
