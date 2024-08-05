@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import org.takim2.insan_kaynaklari_api.entity.enums.EmployeeLimitLevel;
 import org.takim2.insan_kaynaklari_api.entity.enums.SubscriptionPlan;
 
 
@@ -22,7 +23,11 @@ public class Company {
 
     private String companyName;
 
-    private Integer numberOfEmployees;
+    @Builder.Default
+    private Integer numberOfEmployees=0;
+    @Enumerated(EnumType.STRING)
+    private EmployeeLimitLevel employeeLimitLevel;
+    private Integer employeeNumberLimit;
     @ManyToOne
     private CompanyManager companyManager;
     @Enumerated(EnumType.STRING)

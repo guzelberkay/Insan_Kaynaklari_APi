@@ -70,6 +70,8 @@ public class UserService {
 
         Company company = CompanyMapper.INSTANCE.toCompany(dto);
         company.setCompanyName(dto.getCompanyName());
+        company.setEmployeeLimitLevel(dto.getEmployeeLimitLevel());
+        company.setEmployeeNumberLimit(dto.getEmployeeLimitLevel().getEmployeeLimit());
         company.setSubscriptionPlan(dto.getSubscriptionPlan());
 
         // RegisterRequestDto'dan User nesnesi oluştur

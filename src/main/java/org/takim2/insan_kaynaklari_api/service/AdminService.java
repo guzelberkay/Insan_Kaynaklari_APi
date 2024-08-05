@@ -52,7 +52,7 @@ public class AdminService {
                             .userRole(usersByIds.get(passiveCompaniesView.getCompanyManagersUserId()).getUserRole())
                             .companyId(passiveCompaniesView.getId())
                             .companyName(passiveCompaniesView.getCompanyName())
-                            .numberOfEmployees(passiveCompaniesView.getNumberOfEmployees())
+                            .numberOfEmployees(passiveCompaniesView.getEmployeeNumberLimit())
                             .subscriptionPlan(passiveCompaniesView.getSubscriptionPlan())
 
                     .build());

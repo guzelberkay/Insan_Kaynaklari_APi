@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.takim2.insan_kaynaklari_api.entity.enums.EmployeeLimitLevel;
 import org.takim2.insan_kaynaklari_api.entity.enums.SubscriptionPlan;
 
 @NoArgsConstructor
@@ -22,11 +23,15 @@ public class RegisterRequestDto {
     String phone;
     @Email(message = "Geçerli bir eposta adresi giriniz.")
     String email;
+    @NotBlank(message = "company ismi boş geçilemez.")
     String companyName;
+    private EmployeeLimitLevel employeeLimitLevel;
 
     SubscriptionPlan subscriptionPlan;
     @NotBlank(message = "password boş geçilemez.")
     @Size(min = 8, max = 20, message = "password min 8 - max 20 karakter olabilir.")
     String password;
+    @NotBlank(message = "re-password boş geçilemez.")
+    @Size(min = 8, max = 20, message = "re-password min 8 - max 20 karakter olabilir.")
     String rePassword;
 }

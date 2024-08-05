@@ -14,7 +14,7 @@ public class PassiveCompaniesView {
     private Long id; //CompanyId
     private Long companyManagersUserId;
     private String companyName;
-    private Integer numberOfEmployees;
+    private Integer employeeNumberLimit;
     private SubscriptionPlan subscriptionPlan;
 
 }
