@@ -19,7 +19,8 @@ public class CompanyManager {
     @OneToOne
     private User user;
 
-    private boolean isActive;
+    @Builder.Default
+    private boolean isActive = false;
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;
