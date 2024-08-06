@@ -22,8 +22,9 @@ public class AdminController {
 
 
     @GetMapping("/get-pending-user")
-    public ResponseEntity<ResponseDTO<List<PendingCompaniesResponseDTO>>> getPendingUsers(@RequestParam String token){
-        return ResponseEntity.ok(ResponseDTO.<List<PendingCompaniesResponseDTO>>builder().code(200).data(adminService.getPendingUsers(token)).message("Pending User Listesi Gönderildi.").build());
+    public ResponseEntity<ResponseDTO<List<PendingCompaniesResponseDTO>>> getPendingUsers(@RequestHeader("Authorization") String token){
+        String jwtToken = token.replace("Bearer ", "");
+        return ResponseEntity.ok(ResponseDTO.<List<PendingCompaniesResponseDTO>>builder().code(200).data(adminService.getPendingUsers(jwtToken)).message("Pending User Listesi Gönderildi.").build());
     }
 
 
