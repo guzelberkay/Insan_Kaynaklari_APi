@@ -13,8 +13,8 @@ import org.takim2.insan_kaynaklari_api.service.UserService;
 public class SaveAdmin {
     private final UserService userService;
 
-    @PostConstruct
+    //@PostConstruct
     public void saveAdmin(){
-        userService.saveAdmin(User.builder().email("admin@example.com").password("123456789").userRole(UserRole.ADMIN).userStatus(UserStatus.ACTIVE).build());
+        userService.saveAdmin(User.builder().email("admin@example.com").password("123456789").userRole(UserRole.ADMIN).userStatus(UserStatus.ACTIVE).build()); //mail ve şifresi ortam değişkenlerine eklenerek kodlarda gizlenecek
     }
 }

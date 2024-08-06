@@ -59,6 +59,9 @@ public class UserService {
 
 
     public RegisterResponseDto register(RegisterRequestDto dto) {
+
+        //TODO düzenlenecek
+
         // Password ve rePassword eşitliği kontrol edilir:
         if (!dto.getPassword().equals(dto.getRePassword())) {
             throw new HumanResourcesAppException(ErrorType.PASSWORD_MISMATCH);
@@ -93,7 +96,7 @@ public class UserService {
         return response;
     }
 
-    public ResponseDTO<String> Login(UserLoginRequestDto dto){
+    public String Login(UserLoginRequestDto dto){
         Optional<User> optionalByUser = userRepository.findOptionalByEmailAndPassword(dto.getEmail(), dto.getPassword());
 
         if(optionalByUser.isEmpty()){
@@ -104,12 +107,7 @@ public class UserService {
             throw new HumanResourcesAppException(ErrorType.USER_STATUS_NOT_ACTIVE);
         }
 
-        String token = jwtTokenManager.createToken( optionalByUser.get().getId(), optionalByUser.get().getUserRole() );
-        return ResponseDTO.<String>builder()
-                .code(400)
-                .message("Giriş Başarılı")
-                .data(token)
-                .build();
+        return jwtTokenManager.createToken( optionalByUser.get().getId(), optionalByUser.get().getUserRole() );
     }
 
     //Şifre Yenileme mail gönderme eklenince düzenlenicek

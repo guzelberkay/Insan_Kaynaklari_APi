@@ -19,14 +19,15 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto dto){
-        return ResponseEntity.ok(userService.register(dto)  );
+    public ResponseEntity<ResponseDTO<Boolean>> register(@RequestBody @Valid RegisterRequestDto dto){
+        userService.register(dto);
+        return ResponseEntity.ok(ResponseDTO.<Boolean>builder().code(200).message("Kayıt Başarılı").data(true).build());
     }
     @PostMapping("/login")
     @CrossOrigin("*")
     public ResponseEntity<ResponseDTO<String>> login(@RequestBody UserLoginRequestDto dto){
 
-        return ResponseEntity.ok(userService.Login(dto));
+        return ResponseEntity.ok(ResponseDTO.<String>builder().message("Giriş Başarılı").code(200).data(userService.Login(dto)).build());
     }
 
     @PostMapping("/forgotpassword") //Sonra
