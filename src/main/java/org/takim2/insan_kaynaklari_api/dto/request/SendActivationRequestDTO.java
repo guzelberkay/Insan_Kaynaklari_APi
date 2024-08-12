@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class SendActivationRequestDTO {
-    private String Token;
+    private String token;
     private Long userId;
     private String email;
     private Long companyId;

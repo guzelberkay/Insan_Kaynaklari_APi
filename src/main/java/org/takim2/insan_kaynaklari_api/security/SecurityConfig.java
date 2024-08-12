@@ -20,15 +20,15 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize->
                         authorize
-                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login").permitAll() //Herkese açık yerleri yaz.
-                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","admin/activate-account","admin/activate-account").permitAll() //Herkese açık yerleri yaz.
+                                .requestMatchers("admin/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 );
         return httpSecurity.build();
@@ -41,6 +41,7 @@ public class SecurityConfig {
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
