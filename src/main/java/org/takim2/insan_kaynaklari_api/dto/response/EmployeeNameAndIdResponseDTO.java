@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class EmployeeResponseDTO {
+public class EmployeeNameAndIdResponseDTO {
     private Long employeeId;
     private String employeeName;
     private String employeeSurname;

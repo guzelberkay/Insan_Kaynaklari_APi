@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import org.takim2.insan_kaynaklari_api.dto.request.EmployeeRequestDto;
+import org.takim2.insan_kaynaklari_api.dto.response.EmployeeNameAndIdResponseDTO;
 import org.takim2.insan_kaynaklari_api.dto.response.EmployeeResponseDto;
 import org.takim2.insan_kaynaklari_api.entity.Employee;
 import org.takim2.insan_kaynaklari_api.entity.User;
@@ -11,8 +12,7 @@ import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
 
 import org.takim2.insan_kaynaklari_api.Vw.EmployeeView;
 import org.takim2.insan_kaynaklari_api.dto.request.GetEmployeeRequestDTO;
-import org.takim2.insan_kaynaklari_api.dto.response.EmployeeResponseDTO;
-import org.takim2.insan_kaynaklari_api.entity.Employee;
+
 
 import org.takim2.insan_kaynaklari_api.exception.ErrorType;
 import org.takim2.insan_kaynaklari_api.exception.HumanResourcesAppException;
@@ -36,7 +36,7 @@ public class EmployeeService {
     private final UserRepository userRepository;
     private final JwtTokenManager jwtTokenManager;
     private final EmployeeMapper employeeMapper;
-    
+
     public void addEmployee(EmployeeRequestDto dto) {
         User user;
 
@@ -121,19 +121,22 @@ public class EmployeeService {
         employee.setActive(false);
         employeeRepository.save(employee);
     }
-  public List<EmployeeResponseDTO> getEmployeesByCompanyId(GetEmployeeRequestDTO getEmployeeRequestDTO) {
+
+    public List<EmployeeNameAndIdResponseDTO> getEmployeesByCompanyId(GetEmployeeRequestDTO getEmployeeRequestDTO) {
         List<EmployeeView> employeeViewList = employeeRepository.findAllBycompanyId(getEmployeeRequestDTO.getCompanyId());
         if (employeeViewList.isEmpty()) {
             throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND); //TODO Employee not found olacak!
         }
-        List<EmployeeResponseDTO> employeeResponseDTOList = new ArrayList<>();
+        List<EmployeeNameAndIdResponseDTO> employeeResponseDTOList = new ArrayList<>();
         for (EmployeeView employeeView : employeeViewList) {
-            employeeResponseDTOList.add(employeeMapper.employeeViewToEmployeeResponseDTO(employeeView));
+            employeeResponseDTOList.add(employeeMapper.employeeViewToEmployeeNameAndIdResponseDTO(employeeView));
         }
         return employeeResponseDTOList;
     }
+
     public Employee findEmployeeById(Long employeeId) {
-        return employeeRepository.findById(employeeId).orElseThrow(()-> new HumanResourcesAppException(ErrorType.USER_NOT_FOUND));
+        return employeeRepository.findById(employeeId).orElseThrow(() -> new HumanResourcesAppException(ErrorType.USER_NOT_FOUND));
 
     }
+}
 
