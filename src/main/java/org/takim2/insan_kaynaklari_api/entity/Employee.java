@@ -23,8 +23,8 @@ public class Employee {
     @OneToOne
     private Company company;
 
-    private String hireDate;
-    private String birthDate;
+    private Long hireDate;
+    private Long birthDate;
     private Integer annualLeave;
     private boolean isActive;
 

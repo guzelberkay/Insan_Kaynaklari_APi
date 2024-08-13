@@ -55,8 +55,8 @@ public class EmployeeService {
                 .orElseThrow(() -> new HumanResourcesAppException(ErrorType.EMPLOYEE_NOT_FOUND));
 
         // Employee'yi güncelliyoruz.
-        employee.setHireDate(dto.getHireDate());
-        employee.setBirthDate(dto.getBirthDate());
+        employee.setHireDate(Long.valueOf(dto.getHireDate()));
+        employee.setBirthDate(Long.valueOf(dto.getBirthDate()));
         employee.setAnnualLeave(dto.getAnnualLeave());
         employee.setActive(dto.isActive());
         employeeRepository.save(employee);
