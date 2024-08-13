@@ -73,22 +73,21 @@ public class AdminService {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             String Token = jwtTokenManager.createToken(sendActivationRequestDTO.getUserId(), sendActivationRequestDTO.getEmail(), sendActivationRequestDTO.getCompanyId()).orElseThrow(() -> new HumanResourcesAppException(ErrorType.TOKEN_CREATION_FAILED));
-            String activationLink = "https://localhost:9090/admin/activation?token=" + Token;
+            String activationLink = "http://localhost:9090/admin/activate-account?token=" + Token;
 
             mailMessage.setTo(sendActivationRequestDTO.getEmail());
             mailMessage.setSubject("Activation Mail");
             mailMessage.setText("Your Activation Link : " + activationLink);
-            mailMessage.setBcc("ertugrulsaiher@gmail.com");
+            mailMessage.setBcc("ertugrulsaliher@gmail.com");
             mailSender.send(mailMessage);
 
     }
+
 
     public void activateAccount(String token) {
         Long userId = jwtTokenManager.getUserIdFromToken(token).orElseThrow(() -> new HumanResourcesAppException(ErrorType.INVALID_TOKEN));
         String email = jwtTokenManager.getEmailFromToken(token).orElseThrow(() -> new HumanResourcesAppException(ErrorType.INVALID_TOKEN)); //Gerekli mi?
         Long companyId = jwtTokenManager.getCompanyIdFromToken(token).orElseThrow(() -> new HumanResourcesAppException(ErrorType.INVALID_TOKEN));
-
-
 
         userService.updateUserStatus(userId, UserStatus.ACTIVE);
         companyService.updateCompanyStatus(companyId,true);
