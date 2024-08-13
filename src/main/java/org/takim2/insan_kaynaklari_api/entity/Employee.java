@@ -16,15 +16,20 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     private User user;
+
     @OneToOne
     private Company company;
-    private Long hireDate;
-    private Long birthDate;
+
+    private String hireDate;
+    private String birthDate;
     private Integer annualLeave;
     private boolean isActive;
+
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
+
     private Long updateAt;
 }

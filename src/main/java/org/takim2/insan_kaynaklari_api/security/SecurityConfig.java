@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize->
                         authorize
-                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login").permitAll() //Herkese açık yerleri yaz.
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","/employee/**").permitAll() //Herkese açık yerleri yaz.
                                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 );
