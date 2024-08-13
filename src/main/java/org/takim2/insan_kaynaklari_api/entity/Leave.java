@@ -28,7 +28,8 @@ public class Leave {
     private Long startDate;
     private Long endDate;
     @Enumerated(EnumType.STRING)
-    private LeaveStatus leaveStatus;
+    @Builder.Default
+    private LeaveStatus leaveStatus=LeaveStatus.PENDING;
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;

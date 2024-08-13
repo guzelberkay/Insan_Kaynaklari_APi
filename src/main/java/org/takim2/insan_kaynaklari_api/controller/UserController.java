@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.takim2.insan_kaynaklari_api.dto.request.ChangePasswordDTO;
+import org.takim2.insan_kaynaklari_api.dto.request.ForgotPasswordDTO;
 import org.takim2.insan_kaynaklari_api.dto.request.RegisterRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.request.UserLoginRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.response.RegisterResponseDto;
@@ -23,25 +25,23 @@ public class UserController {
         userService.register(dto);
         return ResponseEntity.ok(ResponseDTO.<Boolean>builder().code(200).message("Kayıt Başarılı").data(true).build());
     }
+
     @PostMapping("/login")
-    @CrossOrigin("*")
     public ResponseEntity<ResponseDTO<String>> login(@RequestBody UserLoginRequestDto dto){
 
         return ResponseEntity.ok(ResponseDTO.<String>builder().message("Giriş Başarılı").code(200).data(userService.Login(dto)).build());
     }
 
-    @PostMapping("/forgotpassword") //Sonra
-    @CrossOrigin("*")
-    public ResponseEntity<ResponseDTO<Boolean>> forgotPassword(@RequestParam String email){
+    @PostMapping("/forgot-password") //Sonra
+    public ResponseEntity<ResponseDTO<Boolean>> forgotPassword(@RequestBody ForgotPasswordDTO forgotPasswordDTO){
 
-        return ResponseEntity.ok(userService.forgotPassword(email));
+        return ResponseEntity.ok(userService.forgotPassword(forgotPasswordDTO.getEmail()));
     }
 
-    @PostMapping("/resetcodecontrol") //Sonra
-    @CrossOrigin("*")
-    public ResponseEntity<ResponseDTO<Boolean>> resetPasswordCodeControl(@RequestParam String code){
+    @PostMapping("/reset-password") //Sonra
+    public ResponseEntity<ResponseDTO<Boolean>> resetPasswordCodeControl(@RequestBody ChangePasswordDTO changePasswordDTO){
 
-        return ResponseEntity.ok(userService.resetPasswordCodeControl(code));
+        return ResponseEntity.ok(userService.resetPasswordCodeControl(changePasswordDTO));
     }
 
 }
