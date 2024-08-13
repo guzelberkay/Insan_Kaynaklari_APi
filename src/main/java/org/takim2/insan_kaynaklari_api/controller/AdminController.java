@@ -1,6 +1,6 @@
 package org.takim2.insan_kaynaklari_api.controller;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +35,9 @@ public class AdminController {
         adminService.sendActivationMail(sendActivationRequestDTO);
         return ResponseEntity.ok(ResponseDTO.<Boolean>builder().code(200).message("Aktivasyon Maili Gönderildi").build());
     }
+
+
+    //önce front'a gönder oradan al, araştır
 
     @GetMapping("/activate-account")
     public ResponseEntity<ResponseDTO<Boolean>> activateAccount(@RequestParam String token){

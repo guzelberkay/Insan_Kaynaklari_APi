@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class SendActivationRequestDTO {
-    private String token;
-    private Long userId;
+public class ForgotPasswordDTO {
     private String email;
-    private Long companyId;
 }

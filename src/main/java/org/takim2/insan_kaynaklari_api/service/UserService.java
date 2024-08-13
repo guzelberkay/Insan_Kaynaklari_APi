@@ -1,10 +1,14 @@
 package org.takim2.insan_kaynaklari_api.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import org.takim2.insan_kaynaklari_api.Vw.UserView;
+import org.takim2.insan_kaynaklari_api.dto.request.ChangePasswordDTO;
 import org.takim2.insan_kaynaklari_api.dto.request.UserLoginRequestDto;
+import org.takim2.insan_kaynaklari_api.dto.request.UserUpdateRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.response.ResponseDTO;
 import org.takim2.insan_kaynaklari_api.entity.Company;
 import org.takim2.insan_kaynaklari_api.entity.CompanyManager;
@@ -38,6 +42,7 @@ public class UserService {
     private final JwtTokenManager jwtTokenManager;
     private final CodeGenerator codeGenerator;
     private final CompanyManagerRepository companyManagerRepository;
+    private final JavaMailSender mailSender;
 
     public void saveAdmin(User user) {
         userRepository.save(user);
@@ -112,7 +117,7 @@ public class UserService {
 
     //Şifre Yenileme mail gönderme eklenince düzenlenicek
     public ResponseDTO<Boolean> forgotPassword(String email) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
+        Optional<User> userOptional = userRepository.findUserByEmail(email);
         if (userOptional.isEmpty()) {
             throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND);
         }
@@ -121,34 +126,67 @@ public class UserService {
         userRepository.save(userOptional.get());
 
         // Şifre yenileme maili gönderilecek
-        //12321321
-        //123131
+        String link = "http://localhost:3000/changeMyPassword";
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setBcc("ertugrulsaliher@gmail.com");
+        mailMessage.setSubject("Forgot Password Reset Link");
+        mailMessage.setText("Doğrulama Kodunuz :"+ userOptional.get().getRePasswordCode() +" ,şifre yenilemek için linke tıklayın  " +link);
+        mailMessage.setTo(email);
+        mailSender.send(mailMessage);
+
 
         return ResponseDTO.<Boolean>builder()
-                .code(400)
+                .code(200)
                 .message("emaile şifre gönderildi. Mailinizi kontrol ediniz.")
                 .data(true)
                 .build();
     }
 
-    public ResponseDTO<Boolean> resetPasswordCodeControl(String code){
-        Optional<User> userOptional = userRepository.findByRePasswordCode(code);
+    public ResponseDTO<Boolean> resetPasswordCodeControl(ChangePasswordDTO changePasswordDTO){
+        Optional<User> userOptional = userRepository.findByRePasswordCode(changePasswordDTO.getCode());
         if (userOptional.isEmpty()) {
             throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND);
         }
 
-        // şifreyi mail gönder
-
         userOptional.get().setRePasswordCode(null);
+        userOptional.get().setPassword(changePasswordDTO.getPassword());
         userRepository.save(userOptional.get());
 
         return ResponseDTO.<Boolean>builder()
-                .code(400)
-                .message("Şifre yenileme işlemi başarılı. Şifreniz mailinize gönderildi.")
+                .code(200)
+                .message("Şifre yenileme işlemi başarılı.")
                 .data(true)
                 .build();
     }
     public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
+    }
+
+    public Boolean userUpdate(UserUpdateRequestDto dto){
+        Optional<Long> userId = jwtTokenManager.getUserIdFromToken(dto.getToken());
+        //token kontrolü
+        if(userId.isEmpty()) {
+            throw new HumanResourcesAppException(ErrorType.INVALID_TOKEN);
+        }
+        Optional<User> userOptional = userRepository.findById(userId.get());
+        //user var mı kontrolü
+        if (userOptional.isPresent()){
+
+            User user = userOptional.get();
+            // girilen veriler boş mu kontrolü
+            if (!dto.getAvatar().isEmpty()){
+                user.setAvatar(dto.getAvatar());
+            }
+            if(!dto.getFirstName().isEmpty()){
+                user.setFirstName(dto.getFirstName());
+            }
+            if(!dto.getLastName().isEmpty()){
+                user.setLastName(dto.getLastName());
+            }
+            userRepository.save(user);
+            return true;
+        }else{
+            throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND);
+        }
     }
 }

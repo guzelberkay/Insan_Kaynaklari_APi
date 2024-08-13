@@ -1,4 +1,4 @@
-package org.takim2.insan_kaynaklari_api.dto.request;
+package org.takim2.insan_kaynaklari_api.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class SendActivationRequestDTO {
-    private String token;
-    private Long userId;
-    private String email;
+public class CompaniesForLeaveDTO {
     private Long companyId;
+    private String companyName;
 }
