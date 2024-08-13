@@ -5,10 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.takim2.insan_kaynaklari_api.dto.request.ChangePasswordDTO;
-import org.takim2.insan_kaynaklari_api.dto.request.ForgotPasswordDTO;
-import org.takim2.insan_kaynaklari_api.dto.request.RegisterRequestDto;
-import org.takim2.insan_kaynaklari_api.dto.request.UserLoginRequestDto;
+import org.takim2.insan_kaynaklari_api.dto.request.*;
 import org.takim2.insan_kaynaklari_api.dto.response.RegisterResponseDto;
 import org.takim2.insan_kaynaklari_api.dto.response.ResponseDTO;
 import org.takim2.insan_kaynaklari_api.service.UserService;
@@ -24,6 +21,13 @@ public class UserController {
     public ResponseEntity<ResponseDTO<Boolean>> register(@RequestBody @Valid RegisterRequestDto dto){
         userService.register(dto);
         return ResponseEntity.ok(ResponseDTO.<Boolean>builder().code(200).message("Kayıt Başarılı").data(true).build());
+    }
+
+    @PostMapping("/edit-profile")
+    @CrossOrigin("*")
+    public ResponseEntity<ResponseDTO<Boolean>> userUpdate(@RequestBody UserUpdateRequestDto dto){
+        userService.userUpdate(dto);
+        return ResponseEntity.ok(ResponseDTO.<Boolean>builder().message("Güncelleme Başarılı").code(200).data(true).build());
     }
 
     @PostMapping("/login")

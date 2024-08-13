@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.takim2.insan_kaynaklari_api.Vw.UserView;
 import org.takim2.insan_kaynaklari_api.dto.request.ChangePasswordDTO;
 import org.takim2.insan_kaynaklari_api.dto.request.UserLoginRequestDto;
+import org.takim2.insan_kaynaklari_api.dto.request.UserUpdateRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.response.ResponseDTO;
 import org.takim2.insan_kaynaklari_api.entity.Company;
 import org.takim2.insan_kaynaklari_api.entity.CompanyManager;
@@ -159,5 +160,33 @@ public class UserService {
     }
     public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
+    }
+
+    public Boolean userUpdate(UserUpdateRequestDto dto){
+        Optional<Long> userId = jwtTokenManager.getUserIdFromToken(dto.getToken());
+        //token kontrolü
+        if(userId.isEmpty()) {
+            throw new HumanResourcesAppException(ErrorType.INVALID_TOKEN);
+        }
+        Optional<User> userOptional = userRepository.findById(userId.get());
+        //user var mı kontrolü
+        if (userOptional.isPresent()){
+
+            User user = userOptional.get();
+            // girilen veriler boş mu kontrolü
+            if (!dto.getAvatar().isEmpty()){
+                user.setAvatar(dto.getAvatar());
+            }
+            if(!dto.getFirstName().isEmpty()){
+                user.setFirstName(dto.getFirstName());
+            }
+            if(!dto.getLastName().isEmpty()){
+                user.setLastName(dto.getLastName());
+            }
+            userRepository.save(user);
+            return true;
+        }else{
+            throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND);
+        }
     }
 }

@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface LeaveRepository extends JpaRepository<Leave, Long> {
-    List<PendingLeaveView> findAllPendingLeaves(Long com); // Burayı düşünmem lazım karmaşık olabilir.
+    //List<PendingLeaveView> findAllPendingLeaves(Long com); // Burayı düşünmem lazım karmaşık olabilir.
 }
