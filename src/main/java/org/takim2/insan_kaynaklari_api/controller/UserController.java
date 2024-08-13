@@ -15,8 +15,6 @@ import org.takim2.insan_kaynaklari_api.service.UserService;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-
-
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO<Boolean>> register(@RequestBody @Valid RegisterRequestDto dto){
         userService.register(dto);

@@ -22,6 +22,7 @@ public class JwtTokenManager {
     String secretKey;
     @Value("${authservice.secret.issuer}")
     String issuer;
+//    Long expireTime = 1000L * 10; // 30 saniyelik bir zaman
     Long expireTime = 1000L * 60 * 30; // 30 dakikalık bir zaman
 
 
