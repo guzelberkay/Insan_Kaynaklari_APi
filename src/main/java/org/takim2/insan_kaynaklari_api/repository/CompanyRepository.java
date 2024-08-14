@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.takim2.insan_kaynaklari_api.Vw.CompanyView;
 import org.takim2.insan_kaynaklari_api.Vw.PassiveCompaniesView;
 import org.takim2.insan_kaynaklari_api.entity.Company;
+import org.takim2.insan_kaynaklari_api.entity.CompanyManager;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query("select new org.takim2.insan_kaynaklari_api.Vw.CompanyView(c.id,c.companyName) from Company c where c.companyManager.user.id =?1")
     List<CompanyView> findCompanyManagersCompanies(Long userId);
 
-
+    List<Company> findAllByCompanyManager(CompanyManager companyManager);
 }
