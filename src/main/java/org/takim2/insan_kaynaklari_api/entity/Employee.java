@@ -20,7 +20,7 @@ public class Employee {
     @OneToOne
     private User user;
 
-    @OneToOne
+    @ManyToOne
     private Company company;
 
     private Long hireDate;

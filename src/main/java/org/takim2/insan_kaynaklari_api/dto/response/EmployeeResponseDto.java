@@ -18,5 +18,6 @@ public class EmployeeResponseDto {
     private String hireDate;
     private String birthDate;
     private int annualLeave;
+    private Long company;
     private boolean isActive;
 }

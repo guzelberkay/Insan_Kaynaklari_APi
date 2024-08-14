@@ -58,6 +58,17 @@ public class EmployeeController {
                 .build());
     }
 
+    @GetMapping("/get-employees-by-company-manager/{companyManagerId}")
+    @CrossOrigin("*")
+    public ResponseEntity<ResponseDTO<List<EmployeeResponseDto>>> getEmployeesByCompanyManagerId(@PathVariable Long companyManagerId) {
+        List<EmployeeResponseDto> employees = employeeService.getEmployeesByCompanyManagerId(companyManagerId);
+        return ResponseEntity.ok(ResponseDTO.<List<EmployeeResponseDto>>builder()
+                .code(200)
+                .message("Çalışanlar listelendi")
+                .data(employees)
+                .build());
+    }
+
     @PutMapping("/activate/{id}")
     @CrossOrigin("*")
     public ResponseEntity<ResponseDTO<Boolean>> activateEmployee(@PathVariable Long id) {

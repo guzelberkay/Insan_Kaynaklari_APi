@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.validation.constraints.NotNull;
+import org.takim2.insan_kaynaklari_api.entity.Company;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +20,7 @@ public class EmployeeRequestDto {
     private String password;
     private String hireDate;
     private String birthDate;
+    private Long company;
     private Integer annualLeave;
     private boolean isActive;
 }
