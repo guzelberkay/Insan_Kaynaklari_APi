@@ -20,6 +20,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select new org.takim2.insan_kaynaklari_api.Vw.EmployeeView(e.id,e.user.firstName,e.user.lastName,e.annualLeave) from Employee e where e.company.id=?1")
     List<EmployeeView> findAllBycompanyId(Long companyId);
+
+    @Query("select e from Employee e where e.company.id in ?1")
+    List<Employee> findAllByCompanyIdIn(List<Long> companyIds);
 }
 
 

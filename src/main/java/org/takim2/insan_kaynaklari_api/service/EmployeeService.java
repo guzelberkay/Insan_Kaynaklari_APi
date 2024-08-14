@@ -1,13 +1,16 @@
 package org.takim2.insan_kaynaklari_api.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import org.takim2.insan_kaynaklari_api.dto.request.EmployeeRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.response.EmployeeNameAndIdResponseDTO;
 import org.takim2.insan_kaynaklari_api.dto.response.EmployeeResponseDto;
+import org.takim2.insan_kaynaklari_api.entity.CompanyManager;
 import org.takim2.insan_kaynaklari_api.entity.Employee;
 import org.takim2.insan_kaynaklari_api.entity.User;
+import org.takim2.insan_kaynaklari_api.entity.Company;
 import org.takim2.insan_kaynaklari_api.entity.enums.UserRole;
 
 import org.takim2.insan_kaynaklari_api.Vw.EmployeeView;
@@ -17,6 +20,8 @@ import org.takim2.insan_kaynaklari_api.dto.request.GetEmployeeRequestDTO;
 import org.takim2.insan_kaynaklari_api.exception.ErrorType;
 import org.takim2.insan_kaynaklari_api.exception.HumanResourcesAppException;
 import org.takim2.insan_kaynaklari_api.mapper.EmployeeMapper;
+import org.takim2.insan_kaynaklari_api.repository.CompanyManagerRepository;
+import org.takim2.insan_kaynaklari_api.repository.CompanyRepository;
 import org.takim2.insan_kaynaklari_api.repository.EmployeeRepository;
 
 import org.takim2.insan_kaynaklari_api.repository.UserRepository;
@@ -36,6 +41,8 @@ public class EmployeeService {
     private final UserRepository userRepository;
     private final JwtTokenManager jwtTokenManager;
     private final EmployeeMapper employeeMapper;
+    private final CompanyRepository companyRepository;
+    private final CompanyManagerRepository companyManagerRepository;
 
     public void addEmployee(EmployeeRequestDto dto) {
         User user;
@@ -138,6 +145,35 @@ public class EmployeeService {
     public Employee findEmployeeById(Long employeeId) {
         return employeeRepository.findById(employeeId).orElseThrow(() -> new HumanResourcesAppException(ErrorType.USER_NOT_FOUND));
 
+    }
+
+    public List<EmployeeResponseDto> getEmployeesByCompanyManagerId(Long userId) {
+        // Önce userId'ye göre CompanyManager'ı bul
+        CompanyManager companyManager = companyManagerRepository.findByUserId(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Company Manager not found"));
+
+        // CompanyManager'ın yönettiği tüm şirketleri bulun
+        List<Long> companyIds = companyRepository.findAllByCompanyManager(companyManager)
+                .stream()
+                .map(Company::getId)
+                .collect(Collectors.toList());
+
+        // Bu şirketlere bağlı tüm çalışanları bulun
+        List<Employee> employees = employeeRepository.findAllByCompanyIdIn(companyIds);
+
+        return employees.stream()
+                .map(employee -> EmployeeResponseDto.builder()
+                        .user(employee.getUser().getId())
+                        .firstName(employee.getUser().getFirstName())
+                        .lastName(employee.getUser().getLastName())
+                        .email(employee.getUser().getEmail())
+                        .hireDate(employee.getHireDate().toString())
+                        .birthDate(employee.getBirthDate().toString())
+                        .annualLeave(employee.getAnnualLeave())
+                        .isActive(employee.isActive())
+                        .company(employee.getCompany().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
 
