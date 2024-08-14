@@ -103,6 +103,7 @@ public class EmployeeService {
                         .birthDate(employee.getBirthDate().toString())
                         .annualLeave(employee.getAnnualLeave())
                         .isActive(employee.isActive())
+                        .company(employee.getCompany().getId())
                         .build())
                 .collect(Collectors.toList());
     }
