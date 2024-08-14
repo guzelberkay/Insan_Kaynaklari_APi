@@ -5,14 +5,11 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import org.takim2.insan_kaynaklari_api.dto.request.EmployeeRequestDto;
+import org.takim2.insan_kaynaklari_api.dto.response.EmployeeNameAndIdResponseDTO;
 import org.takim2.insan_kaynaklari_api.entity.Employee;
 
 import org.takim2.insan_kaynaklari_api.Vw.EmployeeView;
-import org.takim2.insan_kaynaklari_api.dto.request.RegisterRequestDto;
-import org.takim2.insan_kaynaklari_api.dto.response.EmployeeResponseDTO;
-import org.takim2.insan_kaynaklari_api.dto.response.RegisterResponseDto;
-import org.takim2.insan_kaynaklari_api.entity.Employee;
-import org.takim2.insan_kaynaklari_api.entity.User;
+
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -22,6 +19,6 @@ public interface EmployeeMapper {
 
     Employee toEmployee(EmployeeRequestDto dto);
 
-    EmployeeResponseDTO employeeViewToEmployeeResponseDTO(EmployeeView employeeView);
+    EmployeeNameAndIdResponseDTO employeeViewToEmployeeNameAndIdResponseDTO(EmployeeView employeeView);
 }
 
