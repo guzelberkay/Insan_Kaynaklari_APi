@@ -84,9 +84,9 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/get-employee-by-company-id")
-    public ResponseEntity<ResponseDTO<List<EmployeeNameAndIdResponseDTO>>> getEmployeesByCompanyId(@RequestBody GetEmployeeRequestDTO getEmployeeRequestDTO) {
-        return ResponseEntity.ok(ResponseDTO.<List<EmployeeNameAndIdResponseDTO>>builder().code(200).message("Çalışan listesi gönderildi").data(employeeService.getEmployeesByCompanyId(getEmployeeRequestDTO)).build());
+    @GetMapping("/get-employee-by-company-id/{companyId}")
+    public ResponseEntity<ResponseDTO<List<EmployeeNameAndIdResponseDTO>>> getEmployeesByCompanyId(@PathVariable Long companyId) {
+        return ResponseEntity.ok(ResponseDTO.<List<EmployeeNameAndIdResponseDTO>>builder().code(200).message("Çalışan listesi gönderildi").data(employeeService.getEmployeesByCompanyId(companyId)).build());
     }
 }
 

@@ -130,8 +130,8 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public List<EmployeeNameAndIdResponseDTO> getEmployeesByCompanyId(GetEmployeeRequestDTO getEmployeeRequestDTO) {
-        List<EmployeeView> employeeViewList = employeeRepository.findAllBycompanyId(getEmployeeRequestDTO.getCompanyId());
+    public List<EmployeeNameAndIdResponseDTO> getEmployeesByCompanyId(Long companyId) {
+        List<EmployeeView> employeeViewList = employeeRepository.findAllBycompanyId(companyId);
         if (employeeViewList.isEmpty()) {
             throw new HumanResourcesAppException(ErrorType.USER_NOT_FOUND); //TODO Employee not found olacak!
         }
@@ -174,6 +174,9 @@ public class EmployeeService {
                         .company(employee.getCompany().getId())
                         .build())
                 .collect(Collectors.toList());
+    }
+    public void saveEmployee(Employee employee) {
+        employeeRepository.save(employee);
     }
 }
 
