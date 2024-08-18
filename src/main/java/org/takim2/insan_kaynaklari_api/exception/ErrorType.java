@@ -33,6 +33,8 @@ public enum ErrorType {
 	COMPANY_NOT_FOUND(5009,"company not found", HttpStatus.NOT_FOUND),
 	USER_SERVICE_UNAVAILABLE(5010,"user service unavailable", HttpStatus.SERVICE_UNAVAILABLE),
 	USER_SERVICE_CAN_NOT_SAVE_USER_PROFILE(5011,"kayıt sırasında sorun oluştu",HttpStatus.SERVICE_UNAVAILABLE),
+	EMPLOYEE_NOT_FOUND(5009,"employee not found", HttpStatus.NOT_FOUND),
+	NOT_ENOUGH_ANNUAL_LEAVE_DATE(10000,"Yeterli izin Hakkı Yok",HttpStatus.BAD_REQUEST),
 
 	INTERNAL_SERVER_ERROR(0002,
 			"Aktivasyon işlemleri yapılamıyor. Server Hatası.",

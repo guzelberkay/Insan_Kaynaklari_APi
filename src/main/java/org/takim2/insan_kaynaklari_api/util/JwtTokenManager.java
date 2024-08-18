@@ -22,7 +22,7 @@ public class JwtTokenManager {
     String secretKey;
     @Value("${authservice.secret.issuer}")
     String issuer;
-    Long expireTime = 1000L * 60 * 30; // 30 dakikalık bir zaman
+    Long expireTime = 1000L * 60 * 120; // 30 dakikalık bir zaman
 
 
     public Optional<String> createToken(Long userId,String email,Long companyId){

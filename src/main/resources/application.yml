@@ -26,5 +26,5 @@ spring:
 
 authservice:
  secret:
-  secret-key: ${JAVA14_SECRET_KEY}
-  issuer: ${JAVA14_ISSUER}
+  secret-key: ${JAVA_14_SECRET_KEY}
+  issuer: ${JAVA_14_ISSUER}
