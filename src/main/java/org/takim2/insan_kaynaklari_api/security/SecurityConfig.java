@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize->
                         authorize
 
-                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account","comment/get-comment-list","shift/getMyShifts").permitAll() //Herkese açık yerleri yaz.
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account","comment/get-comment-list").permitAll() //Herkese açık yerleri yaz.
                                 .requestMatchers("admin/**").hasAuthority("ADMIN")
 
                                 //.requestMatchers("company/**","/employee/**","/leave/**", "comment/**").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
@@ -36,8 +36,8 @@ public class SecurityConfig {
 
                                 //.requestMatchers("company/**","/employee/**","/leave/**","/shift/**").hasAnyAuthority("COMPANY_MANAGER","ADMIN") bakılacak
 
-                                .requestMatchers("company/**","/employee/**","/leave/save-leave","/leave/get-pending-leaves/","/leave/update-leave-status","/shift/**","comment/**","assets/get-employee-assets-by-company-id/{companyId}","assets/assignAsset").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
-                                .requestMatchers("leave/leave-request","assets/{assetId}/reject","assets/{assetId}/verify").hasAuthority("EMPLOYEE")
+                                .requestMatchers("company/**","/employee/**","/leave/save-leave","/leave/get-pending-leaves/","/leave/update-leave-status","/shift/assignShifts","/shift/getAllShifts","comment/**","assets/get-employee-assets-by-company-id/{companyId}","assets/assignAsset").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
+                                .requestMatchers("leave/leave-request","assets/{assetId}/reject","assets/{assetId}/verify","shift/getMyShifts").hasAuthority("EMPLOYEE")
 
 
 
