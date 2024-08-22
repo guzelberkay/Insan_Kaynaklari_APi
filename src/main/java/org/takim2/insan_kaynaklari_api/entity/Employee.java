@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,6 +28,7 @@ public class Employee {
     private Long hireDate;
     private Long birthDate;
     private Integer annualLeave;
+    private BigDecimal salary;
     private boolean isActive;
 
     @Builder.Default
