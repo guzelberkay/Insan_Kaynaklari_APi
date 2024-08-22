@@ -13,5 +13,6 @@ public class AssetRequestDto {
 
     private Long userId;
     private String serialNumber;
+    private String assetName;
     private Long assignedDate;
 }

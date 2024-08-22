@@ -21,7 +21,7 @@ public class Asset {
     private User user;
 
     private String serialNumber;
-
+    private String assetName;
     private Long assignedDate;
     private boolean isReturned;
 

@@ -34,6 +34,7 @@ public class AssetService {
         Asset asset = Asset.builder()
                 .user(user)
                 .serialNumber(dto.getSerialNumber())
+                .assetName(dto.getAssetName())
                 .assignedDate(dto.getAssignedDate())
                 .isReturned(false)
                 .build();
@@ -63,6 +64,7 @@ public class AssetService {
                 .id(asset.getId())
                 .userId(asset.getUser().getId())
                 .serialNumber(asset.getSerialNumber())
+                .assetName(asset.getAssetName())
                 .assignedDate(asset.getAssignedDate())
                 .isReturned(asset.isReturned())
                 .verificationStatus(asset.getVerificationStatus())

@@ -13,6 +13,7 @@ public class AssetResponseDto {
     private Long id;
     private Long userId;
     private String serialNumber;
+    private String assetName;
     private Long assignedDate;
     private boolean isReturned;
     private String verificationStatus;
