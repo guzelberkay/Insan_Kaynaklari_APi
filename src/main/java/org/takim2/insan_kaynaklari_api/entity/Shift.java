@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 @Data
 @Entity
+
 @Table(name = "tbl_shifts")
 public class Shift {
     @Id
@@ -20,10 +21,13 @@ public class Shift {
     private Long id;
     @ManyToMany
     private List<Employee> employee;
-    private Long startDate;
-    private Long endDate;
+    private String startDate;
+    private String endDate;
+    private String startTime;
+    private String endTime;
     private Long breakTimeStart;
     private Long breakTimeEnd;
+
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;

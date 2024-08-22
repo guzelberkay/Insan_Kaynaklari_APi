@@ -12,7 +12,7 @@ import org.takim2.insan_kaynaklari_api.entity.enums.LeaveType;
 @Builder
 @Data
 public class PendingLeaveView {
-    private Long id;
+    private Long leaveId;
     private Long employeeId;
     private String employeeName;
     private String employeeSurname;
@@ -20,4 +20,5 @@ public class PendingLeaveView {
     private Long startDate;
     private Long endDate;
     private LeaveStatus leaveStatus;
+    private String description;
 }

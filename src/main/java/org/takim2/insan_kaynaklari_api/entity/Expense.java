@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.takim2.insan_kaynaklari_api.entity.enums.ExpenseStatus;
 
 import java.math.BigDecimal;
 
@@ -20,11 +21,15 @@ public class Expense {
     private Long id;
     @ManyToOne
     private Employee employee;
-    @OneToOne
+    @ManyToOne
     private Company company;
     private BigDecimal amount;
     private Long expenseDate;
-    private boolean isApproved;
+    private String description;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private ExpenseStatus expenseStatus = ExpenseStatus.PENDING;
+
     @Builder.Default
     private Long createAt=System.currentTimeMillis();
     private Long updateAt;

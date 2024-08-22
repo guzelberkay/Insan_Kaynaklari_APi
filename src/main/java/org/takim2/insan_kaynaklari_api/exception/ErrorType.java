@@ -36,6 +36,7 @@ public enum ErrorType {
 	EMPLOYEE_NOT_FOUND(5009,"employee not found", HttpStatus.NOT_FOUND),
 	ASSET_NOT_FOUND(5009,"asset not found", HttpStatus.NOT_FOUND),
 	NOT_ENOUGH_ANNUAL_LEAVE_DATE(10000,"Yeterli izin Hakkı Yok",HttpStatus.BAD_REQUEST),
+	DATA_NOT_FOUND(500001,"data not found", HttpStatus.NOT_FOUND),
 
 	INTERNAL_SERVER_ERROR(0002,
 			"Aktivasyon işlemleri yapılamıyor. Server Hatası.",

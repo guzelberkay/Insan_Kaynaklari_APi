@@ -46,5 +46,9 @@ public class CompanyService {
         return companiesForLeaves;
 
     }
+
+    public Company findCompanyById(Long companyId) {
+        return companyRepository.findById(companyId).orElseThrow(() -> new HumanResourcesAppException(COMPANY_NOT_FOUND));
+    }
 }
 
