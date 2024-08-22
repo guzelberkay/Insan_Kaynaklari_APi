@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize->
                         authorize
 
-                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account","comment/get-comment-list").permitAll() //Herkese açık yerleri yaz.
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account","comment/get-comment-list","shift/getMyShifts").permitAll() //Herkese açık yerleri yaz.
                                 .requestMatchers("admin/**").hasAuthority("ADMIN")
 
                                 //.requestMatchers("company/**","/employee/**","/leave/**", "comment/**").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
