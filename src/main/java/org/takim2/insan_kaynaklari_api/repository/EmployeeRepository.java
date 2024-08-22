@@ -23,6 +23,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select e from Employee e where e.company.id in ?1")
     List<Employee> findAllByCompanyIdIn(List<Long> companyIds);
+
+    Optional<Employee> findByUserId(Long userId);
+
+
 }
 
 
