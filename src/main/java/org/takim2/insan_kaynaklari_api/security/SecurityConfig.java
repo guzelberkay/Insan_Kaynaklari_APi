@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize->
                         authorize
-                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account","assets/assignAsset","assets/{userId}","assets/{assetId}/reject","assets/{assetId}/verify").permitAll() //Herkese açık yerleri yaz.
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account","assets/assignAsset","assets/{userId}","assets/{assetId}/reject","assets/{assetId}/verify","assets/get-employee-assets-by-company-id/{companyId}").permitAll() //Herkese açık yerleri yaz.
                                 .requestMatchers("admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("company/**","/employee/**","/leave/**","/assets/**").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
                                 .anyRequest().authenticated()

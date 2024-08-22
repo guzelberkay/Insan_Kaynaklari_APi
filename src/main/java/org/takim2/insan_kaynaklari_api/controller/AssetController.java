@@ -7,6 +7,7 @@ import org.takim2.insan_kaynaklari_api.dto.request.AssetRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.request.AssetVerificationRequestDto;
 import org.takim2.insan_kaynaklari_api.dto.response.AssetResponseDto;
 import org.takim2.insan_kaynaklari_api.dto.response.ResponseDTO;
+import org.takim2.insan_kaynaklari_api.entity.Asset;
 import org.takim2.insan_kaynaklari_api.service.AssetService;
 
 import java.util.List;
@@ -34,6 +35,17 @@ public class AssetController {
         return ResponseEntity.ok(ResponseDTO.<List<AssetResponseDto>>builder()
                 .code(200)
                 .message("Kullanıcının zimmetli eşyaları getirildi")
+                .data(assets)
+                .build());
+    }
+
+    @GetMapping("/get-employee-assets-by-company-id/{companyId}")
+    @CrossOrigin("*")
+    public ResponseEntity<ResponseDTO<List<Asset>>> getEmployeeAssetsByCompanyId(@PathVariable Long companyId) {
+        List<Asset> assets = assetService.getAssetsByCompanyId(companyId);
+        return ResponseEntity.ok(ResponseDTO.<List<Asset>>builder()
+                .code(200)
+                .message("Company assets retrieved successfully")
                 .data(assets)
                 .build());
     }

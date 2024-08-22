@@ -37,9 +37,14 @@ public class AssetService {
                 .assetName(dto.getAssetName())
                 .assignedDate(dto.getAssignedDate())
                 .isReturned(false)
+                .verificationStatus(dto.getVerificationStatus())
                 .build();
 
         return convertToResponseDto(assetRepository.save(asset));
+    }
+
+    public List<Asset> getAssetsByCompanyId(Long companyId) {
+        return assetRepository.findAssetsByCompanyId(companyId);
     }
 
     public void verifyAsset(AssetVerificationRequestDto dto) {

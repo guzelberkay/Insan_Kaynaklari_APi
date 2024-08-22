@@ -15,4 +15,5 @@ public class AssetRequestDto {
     private String serialNumber;
     private String assetName;
     private Long assignedDate;
+    private String verificationStatus;
 }
