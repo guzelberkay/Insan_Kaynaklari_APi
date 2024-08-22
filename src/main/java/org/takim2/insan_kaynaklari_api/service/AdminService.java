@@ -78,7 +78,7 @@ public class AdminService {
             mailMessage.setTo(sendActivationRequestDTO.getEmail());
             mailMessage.setSubject("Activation Mail");
             mailMessage.setText("Your Activation Link : " + activationLink);
-            mailMessage.setBcc("ertugrulsaliher@gmail.com");
+            mailMessage.setBcc("ismetmustafa068@gmail.com");
             mailSender.send(mailMessage);
 
     }
