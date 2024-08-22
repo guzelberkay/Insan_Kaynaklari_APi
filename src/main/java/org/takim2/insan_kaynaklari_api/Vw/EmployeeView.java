@@ -14,4 +14,5 @@ public class EmployeeView {
     private String employeeName;
     private String employeeSurname;
     private Integer annualLeave;
+    private Long user;
 }
