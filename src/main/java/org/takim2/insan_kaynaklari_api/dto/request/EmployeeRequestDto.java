@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotNull;
 import org.takim2.insan_kaynaklari_api.entity.Company;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,5 +24,6 @@ public class EmployeeRequestDto {
     private String birthDate;
     private Long company;
     private Integer annualLeave;
+    private BigDecimal salary;
     private boolean isActive;
 }

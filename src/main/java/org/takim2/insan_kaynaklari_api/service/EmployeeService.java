@@ -62,6 +62,8 @@ public class EmployeeService {
 
         Employee employee = EmployeeMapper.INSTANCE.toEmployee(dto);
         employee.setUser(user);
+        employee.setSalary(dto.getSalary());
+        employee.setActive(dto.isActive());
         employeeRepository.save(employee);
     }
 
@@ -177,6 +179,10 @@ public class EmployeeService {
     }
     public void saveEmployee(Employee employee) {
         employeeRepository.save(employee);
+    }
+
+    public Employee findEmployeeByUserId(Long userId) {
+        return employeeRepository.findByUserId(userId).orElseThrow(() -> new HumanResourcesAppException(ErrorType.USER_NOT_FOUND));
     }
 }
 
