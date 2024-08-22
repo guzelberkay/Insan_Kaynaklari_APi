@@ -25,6 +25,7 @@ public class LeaveController {
         return ResponseEntity.ok(ResponseDTO.<Boolean>builder().code(200).message("İzin Başarıyla Tanımlandı").data(Boolean.TRUE).build());
     }
 
+
     @PostMapping("/leave-request")
     public ResponseEntity<ResponseDTO<Boolean>> leaveRequest(@RequestBody LeaveRequestDTO leaveRequestDTO) {
         leaveservice.leaveRequest(leaveRequestDTO);
@@ -45,3 +46,4 @@ public class LeaveController {
 
 
 }
+
