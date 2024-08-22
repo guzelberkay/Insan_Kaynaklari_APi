@@ -21,10 +21,16 @@ public class Asset {
     private User user;
 
     private String serialNumber;
+    private String assetName;
     private Long assignedDate;
     private boolean isReturned;
 
+    private String verificationStatus; // New field to track verification status ("pending", "verified", "rejected")
+
+    @Column(length = 1000)
+    private String note; // New field to allow personnel to add a note if the asset doesn't match
+
     @Builder.Default
-    private Long createAt=System.currentTimeMillis();
+    private Long createAt = System.currentTimeMillis();
     private Long updateAt;
 }
