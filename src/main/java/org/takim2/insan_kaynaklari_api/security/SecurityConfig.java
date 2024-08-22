@@ -29,7 +29,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/user/register","user/login","user/forgot-password","user/reset-password","admin/activate-account","admin/activate-account").permitAll() //Herkese açık yerleri yaz.
                                 .requestMatchers("admin/**").hasAuthority("ADMIN")
-                                .requestMatchers("company/**","/employee/**","/leave/**").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
+                                .requestMatchers("company/**","/employee/**","/leave/**","/shift/**").hasAnyAuthority("COMPANY_MANAGER","ADMIN")
                                 .anyRequest().authenticated()
                 );
         return httpSecurity.build();
