@@ -72,17 +72,50 @@ public class EmployeeService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new HumanResourcesAppException(ErrorType.USER_NOT_FOUND));
 
+        // Kullanıcının bilgilerini güncelliyoruz.
+        if (dto.getFirstName() != null) {
+            user.setFirstName(dto.getFirstName());
+        }
+        if (dto.getLastName() != null) {
+            user.setLastName(dto.getLastName());
+        }
+        if (dto.getEmail() != null) {
+            user.setEmail(dto.getEmail());
+        }
+        if (dto.getPassword() != null) {
+            user.setPassword(dto.getPassword()); // Parola şifreleme işlemi gerekecek
+        }
+        userRepository.save(user);
+
         // Sonra bu User'a ait Employee kaydını buluyoruz.
         Employee employee = employeeRepository.findByUser(user)
                 .orElseThrow(() -> new HumanResourcesAppException(ErrorType.EMPLOYEE_NOT_FOUND));
 
         // Employee'yi güncelliyoruz.
-        employee.setHireDate(Long.valueOf(dto.getHireDate()));
-        employee.setBirthDate(Long.valueOf(dto.getBirthDate()));
-        employee.setAnnualLeave(dto.getAnnualLeave());
+        if (dto.getHireDate() != null) {
+            employee.setHireDate(Long.valueOf(dto.getHireDate()));
+        }
+        if (dto.getBirthDate() != null) {
+            employee.setBirthDate(Long.valueOf(dto.getBirthDate()));
+        }
+        if (dto.getAnnualLeave() != null) {
+            employee.setAnnualLeave(dto.getAnnualLeave());
+        }
+        if (dto.getSalary() != null) {
+            employee.setSalary(dto.getSalary());
+        }
         employee.setActive(dto.isActive());
+
+        // Şirket bilgisi güncellemesi
+        if (dto.getCompany() != null) {
+            Company company = companyRepository.findById(dto.getCompany())
+                    .orElseThrow(() -> new HumanResourcesAppException(ErrorType.COMPANY_NOT_FOUND));
+            employee.setCompany(company);
+        }
+
         employeeRepository.save(employee);
     }
+
 
 
     public void deleteEmployee(Long userId) {
